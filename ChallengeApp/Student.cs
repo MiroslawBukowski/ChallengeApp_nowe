@@ -1,0 +1,167 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ChallengeApp
+{
+    public class Student
+    {
+        public List<decimal> grades = new List<decimal>();
+        public List<string> FullNames = new List<string>();
+        public List<int> ages = new List<int>();
+
+        public string Name { get; set; } // zmieniono Name na name oraz public na private
+
+        public Student(string FullName)
+        {
+            this.FullNames.Add(FullName);
+        }
+
+        public void AddGrade(string inputMark)
+        {
+
+            if (decimal.TryParse(inputMark, out decimal grade))
+            {
+                if (grade >= 1 && grade <= 6)
+                {
+                    this.grades.Add(grade);
+                    Console.WriteLine($"Grade added to Student's grades list: {grade} ");
+                }
+                else
+                {
+                    throw new ArgumentException("Grade is out of range!");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine($"Grade entered incorectly, try again!");
+                Console.ReadLine();
+            }
+        }
+        public void ChangeGrade(string inputMark)
+        {
+
+            switch (inputMark)
+            {
+                case "1+":
+                    this.grades.Add((decimal)1.5);
+                    break;
+                case "2+":
+                    this.grades.Add((decimal)2.5);
+                    break;
+                case "3+":
+                    this.grades.Add((decimal)3.5);
+                    break;
+                case "4+":
+                    this.grades.Add((decimal)4.5);
+                    break;
+                case "5+":
+                    this.grades.Add((decimal)5.5);
+                    break;
+                case "6-":
+                    this.grades.Add((decimal)5.75);
+                    break;
+                case "5-":
+                    this.grades.Add((decimal)4.75);
+                    break;
+                case "4-":
+                    this.grades.Add((decimal)3.75);
+                    break;
+                case "3-":
+                    break;
+                    this.grades.Add((decimal)2.75);
+                case "2-":
+                    this.grades.Add((decimal)1.75);
+                    break;
+
+                default:
+                    //case "1":
+                    //case "2":
+                    //case "3":
+                    //case "4":
+                    //case "5":
+                    //case "6":
+                    //_ => decimal.Parse(inputMark),
+                    
+
+
+                    var converter = decimal.TryParse(inputMark, out decimal grade);
+                    if (converter)
+                    {
+                        if (grade >= 1 && grade <= 6)
+                        {
+                            this.grades.Add(grade);
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Grade is out of range!");
+                        }
+
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Grade is not a number!");
+                    }
+                    break;
+                    //    this.grades.Add(grade);
+                    //    break;
+                    //    //decimal.Parse(inputMark),
+                    //_ =>throw new ArgumentException("Grade out of range"); 
+            }
+
+
+        }
+        public void AddGrade(decimal grade)
+        {
+            this.grades.Add(grade);
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return this.Name;
+            }
+        }
+
+        public object age { get; internal set; }
+
+        public Statistics GetStatistics()
+        {
+            var result = new Statistics();
+            result.Average = 0.0M;
+            result.High = decimal.MinValue;
+            result.Low = decimal.MaxValue;
+
+            foreach (var grade in this.grades)
+            {
+                result.Low = Math.Min(grade, result.Low);
+                result.High = Math.Max(grade, result.High);
+                result.Average += grade;
+            }
+
+
+
+            result.Average /= grades.Count;
+            return result;
+        }
+
+        public int AddAge(int age, object student)
+        {
+            new Student(FullName: FullName).AddAge(age, student);
+            var ages = new List<int>();
+            ages.Add(age);
+            return age;
+            Console.WriteLine("Age {age} added to the ages list");
+        }
+
+        private void AddAge(int age)
+        {
+            Console.WriteLine("Entered age is null or in incorect format!");
+            throw new ArgumentException("Argument age is out of range");
+
+        }
+    }
+}
+
+
