@@ -66,25 +66,29 @@ namespace ChallengeApp
                     Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $"); // | " ^[1 - 5] { 1 } + $" | "^[2-6]{1} '-' $");
                     Regex check_markwithsign = new(pattern: @"[1-5]{1}\+ $ | [2-6]{1}\-$");
 
-                    if (!check_inputMark.IsMatch(input: inputMark))
-                    {
-                        Console.WriteLine("Entered grade is missing, in incorrect format or out of range - conversion failed!");
-                    }
-                    else
-
-                     if (decimal.TryParse(inputMark, out decimal grade))
-                    {
-                        student.AddGrade(grade);
-                    }
-                    if (!check_markwithsign.IsMatch(input: inputMark))
+                    if (!(check_markwithsign.IsMatch(input: inputMark) || inputMark is not null))
                     {
                         Console.WriteLine("Entered grade with sign is in incorect format!");
+                        break;
                     }
                     else
                     {
                     Student: student.ChangeGrade(inputMark);
                         //student.AddGrade(inputMark);
                     }
+
+                    if (!(check_inputMark.IsMatch(input: inputMark)  || inputMark is not null))
+                    {
+                        Console.WriteLine("Entered grade is missing, in incorrect format or out of range - conversion failed!");
+                        break;
+                    }
+                    else
+
+                     if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade) )
+                    {
+                        student.AddGrade(grade);
+                    }
+                    
 
                     if (inputMark == "q")
                     {

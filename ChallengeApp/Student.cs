@@ -44,34 +44,34 @@ namespace ChallengeApp
             switch (inputMark)
             {
                 case "1+":
-                    this.grades.Add((decimal)1.5);
+                    this.grades.Add(1.5M);
                     break;
                 case "2+":
-                    this.grades.Add((decimal)2.5);
+                    this.grades.Add(2.5M);
                     break;
                 case "3+":
-                    this.grades.Add((decimal)3.5);
+                    this.grades.Add(3.5M);
                     break;
                 case "4+":
-                    this.grades.Add((decimal)4.5);
+                    this.grades.Add(4.5M);
                     break;
                 case "5+":
-                    this.grades.Add((decimal)5.5);
+                    this.grades.Add(5.5M);
                     break;
                 case "6-":
-                    this.grades.Add((decimal)5.75);
+                    this.grades.Add(5.75M);
                     break;
                 case "5-":
-                    this.grades.Add((decimal)4.75);
+                    this.grades.Add(4.75M);
                     break;
                 case "4-":
-                    this.grades.Add((decimal)3.75);
+                    this.grades.Add(3.75M);
                     break;
                 case "3-":
                     break;
-                    this.grades.Add((decimal)2.75);
+                    this.grades.Add(2.75M);
                 case "2-":
-                    this.grades.Add((decimal)1.75);
+                    this.grades.Add(1.75M);
                     break;
 
                 default:
@@ -88,7 +88,7 @@ namespace ChallengeApp
                     var converter = decimal.TryParse(inputMark, out decimal grade);
                     if (converter)
                     {
-                        if (grade >= 1 && grade <= 6)
+                        if (grade >= 1 && grade <= 6 )
                         {
                             this.grades.Add(grade);
                         }
@@ -101,6 +101,7 @@ namespace ChallengeApp
                     else
                     {
                         throw new ArgumentException("Grade is not a number!");
+                        
                     }
                     break;
                     //    this.grades.Add(grade);
