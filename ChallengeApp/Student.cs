@@ -9,7 +9,7 @@ namespace ChallengeApp
         public List<string> FullNames = new List<string>();
         public List<int> ages = new List<int>();
 
-        public string Name { get; set; } // zmieniono Name na name oraz public na private
+        public string Name { get; set; }
 
         public Student(string FullName)
         {
@@ -18,7 +18,6 @@ namespace ChallengeApp
 
         public void AddGrade(string inputMark)
         {
-
             if (decimal.TryParse(inputMark, out decimal grade))
             {
                 if (grade >= 1 && grade <= 6)
@@ -30,7 +29,6 @@ namespace ChallengeApp
                 {
                     throw new ArgumentException("Grade is out of range!");
                 }
-
             }
             else
             {
@@ -40,7 +38,6 @@ namespace ChallengeApp
         }
         public void ChangeGrade(string inputMark)
         {
-
             switch (inputMark)
             {
                 case "1+":
@@ -75,7 +72,7 @@ namespace ChallengeApp
                     break;
 
                 default:
-                    
+
                     var converter = decimal.TryParse(inputMark, out decimal grade);
                     if (converter)
                     {
@@ -87,14 +84,12 @@ namespace ChallengeApp
                         {
                             throw new ArgumentException("Grade is out of range!");
                         }
-
                     }
                     else
                     {
                         throw new ArgumentException("Grade is not a number!");
-
                     }
-                    break;                  
+                    break;
             }
         }
         public void AddGrade(decimal grade)
@@ -125,9 +120,6 @@ namespace ChallengeApp
                 result.High = Math.Max(grade, result.High);
                 result.Average += grade;
             }
-
-
-
             result.Average /= grades.Count;
             return result;
         }
