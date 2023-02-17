@@ -39,7 +39,7 @@ namespace ChallengeApp
                 Console.WriteLine("Input age of student in the following format: dd");
                 string? a = Console.ReadLine();
                 Regex checkage = new(@"^[1-9]{2,}$");
-                if (!checkage.IsMatch(input: a)) // | a == null)
+                if (!checkage.IsMatch(input: a)) 
                 {
                     Console.WriteLine("Entered age is missing, in incorrect format or out of range - conversion failed!");
                     break;
@@ -61,9 +61,9 @@ namespace ChallengeApp
                 for (int i = 0; i <= 3; i++)
                 {
                     Console.WriteLine("Input grade achived by student in the following format: d,dd");
-                    var inputMark = Console.ReadLine(); //zmieniony typ string? na var
-                                                        // var markwithsign = Console.ReadLine();
-                    Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $"); // | " ^[1 - 5] { 1 } + $" | "^[2-6]{1} '-' $");
+                    var inputMark = Console.ReadLine(); 
+                                                     
+                    Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $"); 
                     Regex check_markwithsign = new(pattern: @"[1-5]{1}\+ $ | [2-6]{1}\-$");
 
                     if (!(check_markwithsign.IsMatch(input: inputMark) || inputMark is not null))
@@ -74,7 +74,6 @@ namespace ChallengeApp
                     else
                     {
                     Student: student.ChangeGrade(inputMark);
-                        //student.AddGrade(inputMark);
                     }
 
                     if (!(check_inputMark.IsMatch(input: inputMark)  || inputMark is not null))
@@ -84,19 +83,18 @@ namespace ChallengeApp
                     }
                     else
 
-                     if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade) )
+                     if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade))
                     {
                         student.AddGrade(grade);
                     }
                     
-
                     if (inputMark == "q")
                     {
                         break;
                     }
                     else
                     {
-                        student.AddGrade(inputMark); // zmieniono argument z inputMark na markwithsign
+                       
                         Console.WriteLine(value: $"Student {student.FullName} is at age : ");
                         var stat = student.GetStatistics();
                         Console.WriteLine(value: $"Grades achived by student {student.FullNames}  are: \n ");

@@ -75,20 +75,11 @@ namespace ChallengeApp
                     break;
 
                 default:
-                    //case "1":
-                    //case "2":
-                    //case "3":
-                    //case "4":
-                    //case "5":
-                    //case "6":
-                    //_ => decimal.Parse(inputMark),
                     
-
-
                     var converter = decimal.TryParse(inputMark, out decimal grade);
                     if (converter)
                     {
-                        if (grade >= 1 && grade <= 6 )
+                        if (grade >= 1 && grade <= 6)
                         {
                             this.grades.Add(grade);
                         }
@@ -101,16 +92,10 @@ namespace ChallengeApp
                     else
                     {
                         throw new ArgumentException("Grade is not a number!");
-                        
+
                     }
-                    break;
-                    //    this.grades.Add(grade);
-                    //    break;
-                    //    //decimal.Parse(inputMark),
-                    //_ =>throw new ArgumentException("Grade out of range"); 
+                    break;                  
             }
-
-
         }
         public void AddGrade(decimal grade)
         {
@@ -160,9 +145,6 @@ namespace ChallengeApp
         {
             Console.WriteLine("Entered age is null or in incorect format!");
             throw new ArgumentException("Argument age is out of range");
-
         }
     }
 }
-
-
