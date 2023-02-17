@@ -50,6 +50,8 @@ namespace ChallengeApp
                     {
                         var ages = new List<int>();
                         ages.Add(age);
+                        //Console.WriteLine($"Age {age} added to the ages list");
+                        Console.WriteLine(value: $"Student {FullName} is at age : {age} ");
                     }
                     else
                     {
@@ -92,9 +94,7 @@ namespace ChallengeApp
                         break;
                     }
                     else
-                    {
-
-                        Console.WriteLine(value: $"Student {FullName} is at age :  ");
+                    {                       
                         var stat = student.GetStatistics();
                         Console.WriteLine(value: $"Grades achived by student {FullName}  are: \n ");
                         Console.WriteLine($"The Min value of these grades  is : {stat.Low:N2}");

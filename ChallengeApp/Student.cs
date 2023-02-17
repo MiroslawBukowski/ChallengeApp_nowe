@@ -16,6 +16,11 @@ namespace ChallengeApp
             this.FullNames.Add(FullName);
         }
 
+        public Student(int age)
+        {
+            this.ages.Add(age);
+        }
+
         public void AddGrade(string inputMark)
         {
             if (decimal.TryParse(inputMark, out decimal grade))
@@ -124,19 +129,11 @@ namespace ChallengeApp
             return result;
         }
 
-        public int AddAge(int age, object student)
+        public int AddAge(int age)
         {
-            new Student(FullName: FullName).AddAge(age, student);
             var ages = new List<int>();
             ages.Add(age);
-            return age;
-            Console.WriteLine("Age {age} added to the ages list");
-        }
-
-        private void AddAge(int age)
-        {
-            Console.WriteLine("Entered age is null or in incorect format!");
-            throw new ArgumentException("Argument age is out of range");
+            return age;          
         }
     }
 }
