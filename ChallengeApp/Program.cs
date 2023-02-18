@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Windows.Devices.PointOfService;
 
 namespace ChallengeApp
 {
@@ -50,7 +51,6 @@ namespace ChallengeApp
                     {
                         var ages = new List<int>();
                         ages.Add(age);
-                        //Console.WriteLine($"Age {age} added to the ages list");
                         Console.WriteLine(value: $"Student {FullName} is at age : {age} ");
                     }
                     else
@@ -65,7 +65,7 @@ namespace ChallengeApp
                     var inputMark = Console.ReadLine();
 
                     Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $");
-                    Regex check_markwithsign = new(pattern: @"[1-5]{1}\+ $ | [2-6]{1}\-$");
+                    Regex check_markwithsign = new(pattern: @"^[1-5]{1}\+ $ | ^[2-6]{1}\-$");
 
                     if (!(check_markwithsign.IsMatch(input: inputMark) || inputMark is not null))
                     {
@@ -100,8 +100,9 @@ namespace ChallengeApp
                         Console.WriteLine($"The Min value of these grades  is : {stat.Low:N2}");
                         Console.WriteLine($"The Max value of these grades  is : {stat.High:N2}");
                         Console.WriteLine($"The Average of these grades  is : {stat.Average:N3}");
-                        Console.WriteLine("Total grade is:  ");
+                        Console.WriteLine($"Total grade is: {stat.AverageLetter} ");
                     }
+                    
                 }
 
             }

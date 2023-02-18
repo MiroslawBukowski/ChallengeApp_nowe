@@ -126,6 +126,28 @@ namespace ChallengeApp
                 result.Average += grade;
             }
             result.Average /= grades.Count;
+
+            switch(result.Average)
+            {
+                case var average when average >= 5:
+                    result.AverageLetter = 'A';
+                    break;
+                case var average when average >= 4:
+                    result.AverageLetter = 'B';
+                    break;
+                case var average when average >= 3:
+                    result.AverageLetter = 'C';
+                    break;
+                case var average when average >= 2:
+                    result.AverageLetter = 'D';
+                    break;
+                case var average when average >= 1:
+                    result.AverageLetter = 'E';
+                    break;
+                default:
+                    result.Average = 0;
+                    break;
+            }
             return result;
         }
 
