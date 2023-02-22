@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.HSSF.Record.Chart;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Windows.Devices.PointOfService;
@@ -12,6 +13,8 @@ namespace ChallengeApp
         public int age;
         public static decimal result;
         private static object grades;
+        private static string unsignedMark;
+        private static string markwithsign;
 
         public static string FullName { get; private set; }
 
@@ -66,7 +69,7 @@ namespace ChallengeApp
 
                     Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $");
                     Regex check_markwithsign = new(pattern: @"^[1-5]{1}\+ $ | ^[2-6]{1}\-$");
-
+                   
                     if (!(check_markwithsign.IsMatch(input: inputMark) || inputMark is not null))
                     {
                         Console.WriteLine("Entered grade with sign is in incorect format!");
@@ -74,7 +77,14 @@ namespace ChallengeApp
                     }
                     else
                     {
-                    Student: student.ChangeGrade(inputMark);
+                        try
+                        {
+                        Student: student.ChangeGrade(inputMark);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine($"Exception catched: {e.Message}");
+                        }
                     }
 
                     if (!(check_inputMark.IsMatch(input: inputMark) || inputMark is not null))
@@ -86,7 +96,15 @@ namespace ChallengeApp
 
                      if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade))
                     {
-                        student.AddGrade(grade);
+                        try
+                        {
+                            student.AddGrade(grade);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine($"Exception catched: {e.Message}");
+                        }
+                        
                     }
 
                     if (inputMark == "q")

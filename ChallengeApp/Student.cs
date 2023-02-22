@@ -37,8 +37,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine($"Grade entered incorectly, try again!");
-                Console.ReadLine();
+                throw new Exception("Grade Conversion failed!");               
             }
         }
         public void ChangeGrade(string inputMark)
@@ -69,9 +68,9 @@ namespace ChallengeApp
                 case "4-":
                     this.grades.Add(3.75M);
                     break;
-                case "3-":
-                    break;
+                case "3-":                   
                     this.grades.Add(2.75M);
+                    break;
                 case "2-":
                     this.grades.Add(1.75M);
                     break;
@@ -92,7 +91,7 @@ namespace ChallengeApp
                     }
                     else
                     {
-                        throw new ArgumentException("Grade is not a number!");
+                        throw new ArgumentException("Grade is not a number! Cobversion failed");
                     }
                     break;
             }
@@ -145,8 +144,8 @@ namespace ChallengeApp
                     result.AverageLetter = 'E';
                     break;
                 default:
-                    result.Average = 0;
-                    break;
+                    throw new Exception(" Wrong letter");
+                    //.Average = 0;
             }
             return result;
         }

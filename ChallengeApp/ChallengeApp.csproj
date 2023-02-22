@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="C:\Challenge\tests\Challenge.Tests\StudentTests.cs" Link="StudentTests.cs" />
+    <PackageReference Include="NPOI" Version="2.6.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.2" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.2" />
   </ItemGroup>
 
 </Project>
