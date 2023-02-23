@@ -3,20 +3,22 @@ using System.Collections.Generic;
 
 namespace ChallengeApp
 {
-    public class Student
+    public class Student : Person
     {
         public List<decimal> grades = new List<decimal>();
         public List<string> FullNames = new List<string>();
         public List<int> ages = new List<int>();
 
-        public string Name { get; set; }
+       // public string Name { get; set; }
 
         public Student(string FullName)
+           : base(FullName)
         {
             this.FullNames.Add(FullName);
         }
 
         public Student(int age)
+            : base(age)
         {
             this.ages.Add(age);
         }
