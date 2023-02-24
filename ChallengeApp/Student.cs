@@ -147,16 +147,8 @@ namespace ChallengeApp
                     break;
                 default:
                     throw new Exception(" Wrong letter");
-                    //.Average = 0;
             }
             return result;
         }
-
-        //public int AddAge(int age)
-        //{
-        //    var ages = new List<int>();
-        //    ages.Add(age);
-        //    return age;          
-        //}
     }
 }
