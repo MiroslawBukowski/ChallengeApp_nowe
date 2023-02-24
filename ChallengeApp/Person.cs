@@ -4,9 +4,9 @@
     {
         protected int age;
        
-        public Person(string name)
+        public Person(string Name)
         {
-            this.Name = name;
+            this.Name = Name;
         }
 
         public Person(int age)

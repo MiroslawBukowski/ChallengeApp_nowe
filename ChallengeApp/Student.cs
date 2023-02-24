@@ -6,21 +6,21 @@ namespace ChallengeApp
     public class Student : Person
     {
         public List<decimal> grades = new List<decimal>();
-        public List<string> FullNames = new List<string>();
-        public List<int> ages = new List<int>();
+       // public List<string> FullNames = new List<string>();
+        //public List<int> ages = new List<int>();
 
        // public string Name { get; set; }
 
         public Student(string FullName)
            : base(FullName)
         {
-            this.FullNames.Add(FullName);
+            this.Name = FullName;   
         }
 
         public Student(int age)
             : base(age)
         {
-            this.ages.Add(age);
+            this.age = age;
         }
 
         public void AddGrade(string inputMark)
@@ -152,11 +152,11 @@ namespace ChallengeApp
             return result;
         }
 
-        public int AddAge(int age)
-        {
-            var ages = new List<int>();
-            ages.Add(age);
-            return age;          
-        }
+        //public int AddAge(int age)
+        //{
+        //    var ages = new List<int>();
+        //    ages.Add(age);
+        //    return age;          
+        //}
     }
 }
