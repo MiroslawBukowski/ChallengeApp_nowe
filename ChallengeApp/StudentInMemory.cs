@@ -1,48 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
-    public class Student : Person
+    public class StudentInMemory : StudentBase
     {
+        public StudentInMemory(string fullname) : base(fullname)
+        {
+        }
         public List<decimal> grades = new List<decimal>();
-       // public List<string> FullNames = new List<string>();
-        //public List<int> ages = new List<int>();
+        ////public override void AddGrade(string inputMark)
+        ////{
+        ////    if (decimal.TryParse(inputMark, out decimal grade))
+        ////    {
+        ////        if (grade >= 1 && grade <= 6)
+        ////        {
+        ////            this.grades.Add(grade);
+        ////            Console.WriteLine($"Grade added to Student's grades list: {grade} ");
+        ////        }
+        ////        else
 
-       // public string Name { get; set; }
 
-        public Student(string FullName)
-           : base(FullName)
+        ////        {
+        ////            throw new ArgumentException("Grade is out of range!");
+        ////        }
+
+        ////    }
+        ////    else if(inputMark.Length==2)
+        //////    {
+        //////        AddGradeWithSign(inputMark);
+        //////    }
+        ////        else
+        //    {
+        //        throw new Exception("Grade Conversion failed!");
+        //    }
+        //}
+
+        public override void AddGrade(char grade)
         {
-            this.fullName = FullName;   
+            this.grades.Add(grade);
         }
 
-        public Student(int age)
-            : base(age)
+        public override void AddGrade(decimal grade)
         {
-            this.age = age;
+            this.grades.Add(grade);
         }
 
-        public void AddGrade(string inputMark)
+        public override void AddGrade(int grade)
         {
-            if (decimal.TryParse(inputMark, out decimal grade))
-            {
-                if (grade >= 1 && grade <= 6)
-                {
-                    this.grades.Add(grade);
-                    Console.WriteLine($"Grade added to Student's grades list: {grade} ");
-                }
-                else
-                {
-                    throw new ArgumentException("Grade is out of range!");
-                }
-            }
-            else
-            {
-                throw new Exception("Grade Conversion failed!");               
-            }
+            this.grades.Add(grade);
         }
-        public void ChangeGrade(string inputMark)
+
+        public override void AddGrade(string inputMark)
         {
             switch (inputMark)
             {
@@ -70,7 +76,7 @@ namespace ChallengeApp
                 case "4-":
                     this.grades.Add(3.75M);
                     break;
-                case "3-":                   
+                case "3-":
                     this.grades.Add(2.75M);
                     break;
                 case "2-":
@@ -98,22 +104,8 @@ namespace ChallengeApp
                     break;
             }
         }
-        public void AddGrade(decimal grade)
-        {
-            this.grades.Add(grade);
-        }
 
-        public string FullName
-        {
-            get
-            {
-                return this.fullName;
-            }
-        }
-
-        public object age { get; internal set; }
-
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var result = new Statistics();
             result.Average = 0.0M;
@@ -128,7 +120,7 @@ namespace ChallengeApp
             }
             result.Average /= grades.Count;
 
-            switch(result.Average)
+            switch (result.Average)
             {
                 case var average when average >= 5:
                     result.AverageLetter = 'A';
@@ -149,6 +141,21 @@ namespace ChallengeApp
                     throw new Exception(" Wrong letter");
             }
             return result;
+        }
+
+        public override void ShowGrades()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Statistics CountStatistics()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Statistics CountStatistics(List<decimal> grades)
+        {
+            throw new NotImplementedException();
         }
     }
 }

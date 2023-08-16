@@ -23,8 +23,9 @@ namespace ChallengeApp
             Console.WriteLine("* Welcome in program Student Index*");
             Console.WriteLine("*************************************");
 
-            var student = new Student(FullName);
-
+           // var student = new StudentInMemory(FullName);
+            var student = new StudentInFile(FullName);
+            //student.AddGrade(3.75M);
             while (true)
             {
                 Console.WriteLine("Give FullName of student in the following format and then press enter key  (first letters should be capital, name and surname separated by space char) :");
@@ -42,7 +43,7 @@ namespace ChallengeApp
 
                 Console.WriteLine("Input age of student in the following format: dd");
                 string? a = Console.ReadLine();
-                Regex checkage = new(@"^[1-9]{2,}$");
+                Regex checkage = new(@"^[1-9]{1,}[0-9]{1,}$");
                 if (!checkage.IsMatch(input: a))
                 {
                     Console.WriteLine("Entered age is missing, in incorrect format or out of range - conversion failed!");
@@ -69,7 +70,7 @@ namespace ChallengeApp
 
                     Regex check_inputMark = new(@"^[1-6]{1}(\,)[0-9]{2,} $");
                     Regex check_markwithsign = new(pattern: @"^[1-5]{1}\+ $ | ^[2-6]{1}\-$");
-                   
+
                     if (!(check_markwithsign.IsMatch(input: inputMark) || inputMark is not null))
                     {
                         Console.WriteLine("Entered grade with sign is in incorect format!");
@@ -79,40 +80,40 @@ namespace ChallengeApp
                     {
                         try
                         {
-                        Student: student.ChangeGrade(inputMark);
+                        student.AddGrade(inputMark);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Console.WriteLine($"Exception catched: {e.Message}");
                         }
                     }
 
-                    if (!(check_inputMark.IsMatch(input: inputMark) || inputMark is not null))
-                    {
-                        Console.WriteLine("Entered grade is missing, in incorrect format or out of range - conversion failed!");
-                        break;
-                    }
-                    else
+                    //if (!(check_inputMark.IsMatch(input: inputMark) || inputMark is not null))
+                    //{
+                    //    Console.WriteLine("Entered grade is missing, in incorrect format or out of range - conversion failed!");
+                    //    break;
+                    //}
+                    //else
 
-                     if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade))
-                    {
-                        try
-                        {
-                            student.AddGrade(grade);
-                        }
-                        catch(Exception e)
-                        {
-                            Console.WriteLine($"Exception catched: {e.Message}");
-                        }
-                        
-                    }
+                    // if (check_markwithsign.IsMatch(inputMark) && !decimal.TryParse(inputMark, out decimal grade))
+                    //{
+                    //    try
+                    //    {
+                    //        student.AddGrade(grade);
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        Console.WriteLine($"Exception catched: {e.Message}");
+                    //    }
+
+                    //}
 
                     if (inputMark == "q")
                     {
                         break;
                     }
                     else
-                    {                       
+                    {
                         var stat = student.GetStatistics();
                         Console.WriteLine(value: $"Grades achived by student {FullName}  are: \n ");
                         Console.WriteLine($"The Min value of these grades  is : {stat.Low:N2}");
@@ -120,7 +121,7 @@ namespace ChallengeApp
                         Console.WriteLine($"The Average of these grades  is : {stat.Average:N3}");
                         Console.WriteLine($"Total grade is: {stat.AverageLetter} ");
                     }
-                    
+
                 }
 
             }

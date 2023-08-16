@@ -2,11 +2,12 @@
 {
     public abstract class Person
     {
+        private readonly string FullName;
         protected int age;
        
-        public Person(string Name)
+        public Person(string fullName)
         {
-            this.Name = Name;
+            this.FullName = fullName;
         }
 
         public Person(int age)
@@ -14,6 +15,6 @@
             this.age = age;
         }
 
-        public string Name { get; protected set; }
+        public string fullName { get; protected set; }
     }
 }
