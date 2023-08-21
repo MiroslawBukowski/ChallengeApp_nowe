@@ -1,4 +1,5 @@
 ﻿using MathNet.Numerics.Statistics;
+using NPOI.XWPF.UserModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Windows.Networking;
@@ -7,64 +8,55 @@ namespace ChallengeApp
 {
     public class StudentInFile : StudentBase
     {
-        private const string fileName = "grades.txt";
-        private object fullNameFile;
+        private const string fileName = "grades.txt";       
+        public List<decimal> grades = new List<decimal>();
+        public List<string> FullNames= new List<string>();
+        private static string FullName;
+        private object fullNamefile = $"{FullName}_grades.txt";
+        int index;
+        
+        public Action<object, EventArgs> GradeAdded { get; internal set; }
 
         public StudentInFile(string fullName) : base(fullName)
         {
-             string fullNameFile = ($"{base.fullName}_{fileName}");
+            string fullNamefile = ($"{base.FullName}_{fileName}");
         }
 
-        //public StudentInFile(string fullname) : base(fullname)
-        //{
-        //    using (var writer = File.AppendText(fileName))
-        //    {
-        //        writer.WriteLine($" Student's {fullname} grades are : \n");
-        //    }
-        //}
-        //public StudentInFile(string fulltName ) : base(fullName)
-        //{
-            
-        //}
-        //public override void AddGrade(string grade)
-        //{
-        //    using (var writer = File.AppendText(fileName))
-        //    {
-        //        writer.WriteLine(grade);
-        //    }
-        //}
-
-        public override void AddGrade(char grade)
-        {
-            using (var writer = File.AppendText(fileName))
-            {
-                writer.WriteLine(grade);
-            }
-        }
-
+        
         public override void AddGrade(decimal grade)
         {
+            using (var writer1 = File.AppendText($"{fullNamefile}"))
             using (var writer = File.AppendText(fileName))
             {
-               // using (var writer1 = File.AppendText($"{fullNameFile}"))
+               // using (var writer1 = File.AppendText($"{fullNamefile}"))
                 using (var writer2 = File.AppendText($"audit.txt"))
                 {
                     writer.WriteLine(grade);
-                    writer2.WriteLine($"{fullNameFile} - {grade}        {DateTime.UtcNow}");
-                    //if (grade < 3)
-                    //{
-                    //    CheckEventGradeUnder3();
-                    //}
+                    writer1.WriteLine($"{FullName} : {grade}");
+                    
+                    writer2.WriteLine($"{fileName} : {grade}        {DateTime.UtcNow}");
+                    if (grade < 3)
+                    {
+                        CheckEventGradeUnder3();
+                    }
                 }
             }
         }
 
+        private void CheckEventGradeUnder3()
+        {
+            Console.WriteLine("This is a bad grade - the parents of student  should be informed!!! ");
+
+        }
+       
+        public override void AddGrade(char grade)
+        {
+            this.grades.Add(grade);
+        } 
+
         public override void AddGrade(int grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
-                writer.WriteLine(grade);
-            }
+            this.grades.Add(grade);
         }
 
         public override void AddGrade(string inputMark)
@@ -124,9 +116,9 @@ namespace ChallengeApp
                     break;
             }
         }
-          public override void ShowGrades()
+        public override void ShowGrades()
         {
-            StringBuilder sb = new StringBuilder($"{this.fullName}  grades are: ");
+            StringBuilder sb = new StringBuilder($"this.FullName  grades are: ");
 
             using (var reader = File.OpenText(($"{fileName}")))
             {
@@ -142,96 +134,41 @@ namespace ChallengeApp
         public override Statistics GetStatistics()
         {
             var gradesFromFile = this.ReadGradesFromFile();
-            var result = this.CountStatistics(gradesFromFile);
-            return result;
+            var statistics = this.CountStatistics(gradesFromFile);
+            return statistics;
+
         }
 
-        public override Statistics CountStatistics(List<decimal> gradesFromFile)
+        private List<decimal> ReadGradesFromFile()
         {
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = decimal.MinValue;
-            statistics.Min = decimal.MaxValue;
-
-            foreach (var grade in grades)
-            {
-                if(grade>=0)
-                {
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Average += grade;
-                }
-            }
-            statistics.Average /= gradesFromFile.Count;
-            switch (statistics.Average)
-            {
-                case var average when average >= 5:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 4:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 3:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 2:
-                    statistics.AverageLetter = 'D';
-                    break;
-                case var average when average >= 1:
-                    statistics.AverageLetter = 'E';
-                    break;
-                default:
-                    throw new Exception(" Wrong letter");
-            }
-        }
-        return Statistics;
-        private List<decimal>ReadGradesFromFile()
-        {
-            var grades=new List<decimal>();
-            var result = new Statistics();
+            var grades = new List<decimal>();
             if (File.Exists($"{fileName}"))
             {
-                //
-                //result.Average = 0.0M;
-                //result.High = decimal.MinValue;
-                //result.Low = decimal.MaxValue;
-                int count = 0;
-                //statistics.Average = 0.0M;
-                //statistics.High = decimal.MinValue;
-                //statistics.Low = decimal.MaxValue;
-                //int count = 0;
                 using (var reader = File.OpenText($"{fileName}"))
                 {
                     var line = reader.ReadLine();
-
-                    while (line != null) ;
+                    while (line != null)
                     {
-                        var grade = decimal.Parse(line);
-                        // foreach (var grade in this.grades)
-                        // {
-                        grades.Add(grade); //grades.AddGrade();
-                        //result.Low = Math.Min(grade, result.Low);
-                        //result.High = Math.Max(grade, result.High);
-                        //result.Average += grade;
-                        count++;
+                        var number = decimal.Parse(line);
+                        grades.Add(number);
                         line = reader.ReadLine();
                     }
                 }
             }
-            return grades;       //result.Average /= count;
+            return grades;
         }
-        
 
-        public override Statistics CountStatistics()
+        private Statistics CountStatistics(List<decimal> grades)
         {
-            throw new NotImplementedException();
+            var statistics = new Statistics();
+
+            foreach (var grade in grades)
+            {
+                statistics.AddGrade(grade);
+            }
+
+            return statistics;
+
         }
-        
     }
-     /*result;*/ //grades; //result;
 }
-
-        //return result;
-    
-
-

@@ -6,7 +6,7 @@ namespace ChallengeApp
     public class Student : Person
     {
         public List<decimal> grades = new List<decimal>();
-       // public List<string> FullNames = new List<string>();
+        public List<string> FullNames = new List<string>();
         //public List<int> ages = new List<int>();
 
        // public string Name { get; set; }
@@ -115,40 +115,13 @@ namespace ChallengeApp
 
         public Statistics GetStatistics()
         {
-            var result = new Statistics();
-            result.Average = 0.0M;
-            result.High = decimal.MinValue;
-            result.Low = decimal.MaxValue;
-
+            var statistics = new Statistics();
             foreach (var grade in this.grades)
             {
-                result.Low = Math.Min(grade, result.Low);
-                result.High = Math.Max(grade, result.High);
-                result.Average += grade;
+                statistics.AddGrade(grade);
             }
-            result.Average /= grades.Count;
 
-            switch(result.Average)
-            {
-                case var average when average >= 5:
-                    result.AverageLetter = 'A';
-                    break;
-                case var average when average >= 4:
-                    result.AverageLetter = 'B';
-                    break;
-                case var average when average >= 3:
-                    result.AverageLetter = 'C';
-                    break;
-                case var average when average >= 2:
-                    result.AverageLetter = 'D';
-                    break;
-                case var average when average >= 1:
-                    result.AverageLetter = 'E';
-                    break;
-                default:
-                    throw new Exception(" Wrong letter");
-            }
-            return result;
+            return statistics;
         }
     }
 }

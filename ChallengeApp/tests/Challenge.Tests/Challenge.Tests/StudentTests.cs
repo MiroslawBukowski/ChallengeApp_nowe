@@ -17,8 +17,8 @@ namespace Challenge.Tests
             var result = student.GetStatistics();
 
             //assert
-            Assert.Equal(2.75M, result.Low);
-            Assert.Equal(4.25M, result.High);
+            Assert.Equal(2.75M, result.Min);
+            Assert.Equal(4.25M, result.Max);
             Assert.Equal(3.50M, result.Average, 2);
             Assert.Equal('C', result.AverageLetter);
         }

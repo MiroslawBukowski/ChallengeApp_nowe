@@ -18,7 +18,5 @@ namespace ChallengeApp
         //void ChangeGrade(string inputMark);
 
         Statistics GetStatistics();
-        public abstract Statistics CountStatistics();
-        Statistics CountStatistics(List<decimal> grades);
     }
 }

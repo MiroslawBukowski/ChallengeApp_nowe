@@ -13,18 +13,16 @@ namespace ChallengeApp
             this.SetFullName(fullName);
         }
 
-        public string? fullName;
+        public string? FullName;
 
-        // public string FullName => throw new NotImplementedException();
         public string? GetFullName()
         {
-            return fullName;
+            return FullName;
         }
 
-        // public string FullName => throw new NotImplementedException();
         private void SetFullName(string? value)
         {
-            fullName = value;
+            FullName = value;
         }
 
         public void AddAge(int age)
@@ -48,7 +46,7 @@ namespace ChallengeApp
 
         public abstract void ShowGrades();
         public abstract Statistics GetStatistics();
-        public abstract Statistics CountStatistics();
-        public abstract Statistics CountStatistics(List<decimal> grades);
+        //public abstract Statistics CountStatistics();
+        //public abstract Statistics CountStatistics(List<decimal> grades);
     }
 }

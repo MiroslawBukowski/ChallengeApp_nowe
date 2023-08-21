@@ -6,32 +6,8 @@
         {
         }
         public List<decimal> grades = new List<decimal>();
-        ////public override void AddGrade(string inputMark)
-        ////{
-        ////    if (decimal.TryParse(inputMark, out decimal grade))
-        ////    {
-        ////        if (grade >= 1 && grade <= 6)
-        ////        {
-        ////            this.grades.Add(grade);
-        ////            Console.WriteLine($"Grade added to Student's grades list: {grade} ");
-        ////        }
-        ////        else
 
-
-        ////        {
-        ////            throw new ArgumentException("Grade is out of range!");
-        ////        }
-
-        ////    }
-        ////    else if(inputMark.Length==2)
-        //////    {
-        //////        AddGradeWithSign(inputMark);
-        //////    }
-        ////        else
-        //    {
-        //        throw new Exception("Grade Conversion failed!");
-        //    }
-        //}
+        public Action<object, EventArgs> GradeAdded { get; internal set; }
 
         public override void AddGrade(char grade)
         {
@@ -41,8 +17,15 @@
         public override void AddGrade(decimal grade)
         {
             this.grades.Add(grade);
+            if (grade < 3)
+            {
+                CheckEventGradeUnder3();
+            }
         }
-
+        private void CheckEventGradeUnder3()
+        {
+            Console.WriteLine("This is a bad grade - the parents of student  should be informed!!! ");
+        }
         public override void AddGrade(int grade)
         {
             this.grades.Add(grade);
@@ -91,6 +74,10 @@
                         if (grade >= 1 && grade <= 6)
                         {
                             this.grades.Add(grade);
+                            if (grade < 3)
+                            {
+                                CheckEventGradeUnder31();
+                            }
                         }
                         else
                         {
@@ -105,55 +92,23 @@
             }
         }
 
+        private static void CheckEventGradeUnder31()
+        {
+            Console.WriteLine("This is a bad grade - the parents of student  should be informed!!! ");
+        }
+
         public override Statistics GetStatistics()
         {
-            var result = new Statistics();
-            result.Average = 0.0M;
-            result.High = decimal.MinValue;
-            result.Low = decimal.MaxValue;
-
-            foreach (var grade in this.grades)
+            var statistics = new Statistics();
+            foreach(var grade in this.grades)
             {
-                result.Low = Math.Min(grade, result.Low);
-                result.High = Math.Max(grade, result.High);
-                result.Average += grade;
+                statistics.AddGrade(grade);
             }
-            result.Average /= grades.Count;
-
-            switch (result.Average)
-            {
-                case var average when average >= 5:
-                    result.AverageLetter = 'A';
-                    break;
-                case var average when average >= 4:
-                    result.AverageLetter = 'B';
-                    break;
-                case var average when average >= 3:
-                    result.AverageLetter = 'C';
-                    break;
-                case var average when average >= 2:
-                    result.AverageLetter = 'D';
-                    break;
-                case var average when average >= 1:
-                    result.AverageLetter = 'E';
-                    break;
-                default:
-                    throw new Exception(" Wrong letter");
-            }
-            return result;
+            
+            return statistics;
         }
 
         public override void ShowGrades()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Statistics CountStatistics()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Statistics CountStatistics(List<decimal> grades)
         {
             throw new NotImplementedException();
         }
